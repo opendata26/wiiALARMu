@@ -82,6 +82,7 @@ int Menu_Main(void)
 
     //Init stuff
     char msg[80];
+    bool playing = 0;
     uint8_t sel_digit = 1;
     uint8_t alarmTime[2] = {0, 0};
     OSCalendarTime time;
@@ -180,9 +181,13 @@ int Menu_Main(void)
                 DCFlushRange(&voice1, sizeof(voice1));
 
             }*/
+            if(!playing){
+                playAlarm();
+                playing = true;
+            }
 
-            playAlarm();
         } else {
+            playing = false;
             voice1.stopRequested = 1;
             DCFlushRange(&voice1, sizeof(voice1));
         }
